@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/comunes.css">
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    <title>Editar información del libro <%= `"${libros.obtenerTitulo()}"` %></title>
+</head>
+    <body>
+        <%- include('comunes/encabezado_html') %>
+
+        <div class="container correctWidth">
+            <h1>Editar libro: <%= `"${libros.obtenerTitulo()}"` %></h1>
+
+            <form id="libro_a_editar" action="#" method="post">
+
+                <div class="form-group entrada-form">
+                    <label for="titulo">Titulo del libro:</label>
+                    <input class="form-control" type="text" name="titulo" id="titulo" placeholder="<%= libros.obtenerTitulo() %>">
+                </div>
+                
+                <div class="form-group entrada-form">
+                    <label for="autor">Autor(es) del libro:</label>
+                    <input class="form-control" type="text" name="autor" id="autor" placeholder="<%= libros.obtenerAutor() %>">
+                </div>
+                
+                <div class="form-group entrada-form">
+                    <label for="editorial">Editorial del libro:</label>
+                    <input class="form-control" type="text" name="editorial" id="editorial" placeholder="<%= libros.obtenerEditorial() %>">
+                </div>
+                
+                <div class="form-group entrada-form">
+                    <label for="fecha">Fecha de libros del libro:</label>
+                    <input class="form-control" type="date" name="fecha" id="fecha" placeholder="<%= libros.obtenerEditorial() %>">
+                </div>
+                <button class="btn btn-success buttonMargin" id="editar_libro_btn" type="submit">Editar</button>
+            </form>
+        </div>
+
+        <%- include('comunes/pie_pagina') %>
+
+        <script>
+            $('#libro_a_editar').submit(function(eventoEnviar) {
+
+                eventoEnviar.preventDefault()
+                
+                let titulo = $('#titulo')
+                let autor = $('#autor')
+                let editorial = $('#editorial')
+                let fecha = $('#fecha')
+                let form = $(this)
+
+                $.ajax({
+                    type: 'POST',
+                    url: `/editar/<%= libros.obtenerId()%>/<%= libros.obtenerTitulo()%>/${titulo.val()}/${autor.val()}/${editorial.val()}/${fecha.val()}`,
+                    data: form.serialize(),
+                    success: function(respuesta) {
+                        alert(`Libro actualizado`)
+                        window.location.href = `/libros/${titulo.val()}`
+
+                        titulo.val('')
+                        autor.val('')
+                        editorial.val('')
+                        fecha.val('')       
+                    },
+                    error: function(ajax, mensaje) {
+                        alert('Ocurrió un problema al editar la información el libro')
+                    }
+                })
+            })
+        </script>
+
+        <script src="/js/bootstrap.min.js"></script>
+
+    </body>
+</html>

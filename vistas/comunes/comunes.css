@@ -1,0 +1,19 @@
+body {
+    padding: 25px;
+}
+
+footer {
+    background:lightgray;
+    margin: 10px -25px;
+    padding: 2px 30px 30px;
+}
+
+footer span {
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+}
+
+table, th, td {
+  border: 1px solid;
+}

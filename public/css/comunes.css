@@ -1,0 +1,14 @@
+.correctWidth {
+  padding: 2rem 0;
+  max-width: 70%;
+}
+
+
+.buttonMargin,
+.entrada-form {
+  margin-top: 2rem;
+}
+
+.white {
+  color: #fff;
+}
